@@ -12,16 +12,17 @@ import org.json.JSONObject;
 public class Application {
 	
 	// serviceKey 값
-	public static final String serviceKey = "agiuUdLsVNZz0LQVohUAXEFqoudHAhEb67Xh%2FcYgAjuSFvr84K%2FbNQwUi3b7UhROrcQL8pFd9dC8szPBlgWD3g%3D%3D";
+	public static final String serviceKey = "656c5346716161613833557851694b";
 	
 	public static void main(String[] args) throws IOException {
 		
 		// URL
-		String url = "https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo";
+		String url = "http://data.seoul.go.kr/dataList/OA-16007/A/1/datasetView.do";
 		
-		url += "?serviceKey=" + serviceKey;
-		url += "&numOfRows=5"; // 한 페이지 결과 수
-		url += "&_type=json"; // 기본값 xml
+		url += "?KEY=" + serviceKey;
+		url += "&TYPE=json&SERVICE=LOCALDATA_020301";
+//		url += "&numOfRows=5"; // 한 페이지 결과 수
+//		url += "&_type=json"; // 기본값 xml
 		
 		URL requestUrl = new URL(url);
 		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
@@ -33,7 +34,7 @@ public class Application {
 		StringBuffer responseBuffer =  new StringBuffer();
 		
 		while((line = br.readLine()) != null) {
-//			System.out.println(line);
+			System.out.println(line);
 			responseBuffer.append(line);
 		}
 		br.close();
@@ -45,21 +46,21 @@ public class Application {
 		
 		// 구조 파악
 		JSONObject response = jsonResponse.getJSONObject("response");
-		JSONObject body = response.getJSONObject("body");
-		JSONObject items = body.getJSONObject("items");
-		JSONArray item = items.getJSONArray("item");
+//		JSONObject body = response.getJSONObject("body");
+//		JSONObject items = body.getJSONObject("items");
+//		JSONArray item = items.getJSONArray("item");
+//		
+		System.out.println(response);
 		
-//		System.out.println(response);
-		
-		for(int i=0; i<item.length(); i++) {
-			JSONObject result = item.getJSONObject(i);
+//		for(int i=0; i<item.length(); i++) {
+//			JSONObject result = item.getJSONObject(i);
 //			System.out.println(result);
-			String careNm = result.getString("careNm");
-			String careAddr = result.getString("careAddr");
-			System.out.println("동물보호센터명 : " + careNm);
-			System.out.println("주소 : " + careAddr);
-			System.out.println();
-		}
+//			String careNm = result.getString("careNm");
+//			String careAddr = result.getString("careAddr");
+//			System.out.println("동물보호센터명 : " + careNm);
+//			System.out.println("주소 : " + careAddr);
+//			System.out.println();
+//		}
 		
 	}
 
