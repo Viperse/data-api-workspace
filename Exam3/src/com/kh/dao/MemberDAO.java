@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MemberDAO {
 	
@@ -24,6 +25,15 @@ public class MemberDAO {
 		st.setString(2, pwd);
 		ResultSet rs = st.executeQuery();
 		return rs.next();		
+	}
+	
+	public boolean isEmailExist(String email) throws Exception {
+		String sql = "SELECT EMAIL FROM MEMBERS WHERE EMAIL = ?";
+		Connection conn = getConnection();
+		PreparedStatement pstat = conn.prepareStatement(sql);
+		pstat.setString(1, email);
+		ResultSet rs = pstat.executeQuery();
+		return rs.next();
 	}
 
 }
